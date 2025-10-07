@@ -25,7 +25,6 @@ Il exécute **tous** les scripts présents dans `/opt/openarenaserver/` puis sup
 ```bash
 level05@SnowCrash:~$ cat /usr/sbin/openarenaserver
 #!/bin/sh
-
 for i in /opt/openarenaserver/* ; do
         (ulimit -t 5; bash -x "$i")
         rm -f "$i"
