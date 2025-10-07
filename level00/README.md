@@ -1,20 +1,20 @@
 # level00
 
-1) Commande utilisée pour trouver le fichier appartenant à `flag00` :
+1) Premiere commande : 
 
 ```bash
-find / -user flag00 -type f -ls 2>/dev/null
+ls
 ```
 
 2) Résultat notable trouvé :
 
-Fichier : `/usr/sbin/john`
-Contenu : `cdiiddwpgswtgt`
+Fichier : `level02.pcap`
+
+```bash
+strings level02.pcap | grep Password
+```
+Resultats : `Password: Nf&Nat`
 
 3) Décodage :
 
-La chaîne est un chiffrement de César (décalage 11). Décodée elle donne :
 
-```
-nottoohardhere
-```
