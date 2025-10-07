@@ -46,3 +46,6 @@ export PATH=/tmp:$PATH
 ```bash
 getflag
 ```
+7) Token découvert :
+
+le token est `qi0maab88jeaj46qoumi7maus`
