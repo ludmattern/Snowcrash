@@ -1,20 +1,30 @@
 # level02
 
-1) Commande utilisée pour trouver le fichier appartenant à `flag02` :
+1) Information trouvée dans `/home/level02/` :
 
 ```bash
-find / -user flag00 -type f -ls 2>/dev/null
+./level02.pcap
 ```
 
-2) Résultat notable trouvé :
+2) Extraction et analyse du fichier avec **tshark**
 
-Fichier : `/usr/sbin/john`
-Contenu : `cdiiddwpgswtgt`
+Un proot Ubuntu est utilisé pour éviter d’altérer le système :
 
-3) Décodage :
-
-La chaîne est un chiffrement de César (décalage 11). Décodée elle donne :
-
+```bash
+scp -P 2222 level02@127.0.0.1:/home/level02/level02.pcap ./level02.pcap
 ```
-nottoohardhere
+
+Dans le proot :
+
+
+```bash
+tshark -r level02.pcap -q -z follow,tcp,ascii,0
 ```
+
+Le flux `tshark` montre les frappes caractère-par-caractère.
+
+Sur ce `.pcap` la sortie renvoie : `ft_wandr...NDRel.L0L` (mot de passe correct).
+
+3) Mot de passe découvert :
+
+Les points correspondent aux backspaces de l'utilisateur ce qui donne : `ft_waNDReL0L` (mot de passe correct).
