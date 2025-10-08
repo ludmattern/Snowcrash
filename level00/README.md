@@ -1,12 +1,6 @@
 # level00
 
-1) Premiere commande : 
-
-```bash
-ls
-```
-
-2) Résultat notable trouvé :
+1. Fichiers trouvés dans `~/` :
 
 Fichier : `level02.pcap`
 

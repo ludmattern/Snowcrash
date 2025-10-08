@@ -1,6 +1,6 @@
 # level02
 
-1) Information trouvée dans `/home/level02/` :
+1. Fichiers trouvés dans `~/` :
 
 ```bash
 ./level02.pcap

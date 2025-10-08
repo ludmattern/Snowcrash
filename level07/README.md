@@ -1,6 +1,6 @@
 # level07
 
-1) Fichier binaire `level07` à la racine :
+1. Fichiers trouvés dans `~/` :
 
 ```bash
 ./level07

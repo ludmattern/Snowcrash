@@ -1,6 +1,6 @@
 # level06
 
-1) Information trouvée dans `/home/level06/` :
+1. Fichiers trouvés dans `~/` :
 
 ```bash
 level06  level06.php

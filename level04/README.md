@@ -1,6 +1,6 @@
 # level04
 
-1) Information trouvée dans `/home/level04/` :
+1. Fichiers trouvés dans `~/` :
 
 ```bash
 ./level04.pl

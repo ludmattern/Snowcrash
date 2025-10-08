@@ -1,6 +1,6 @@
 # level09
 
-1) Fichiers trouvés dans `/home/level09/` :
+1. Fichiers trouvés dans `~/` :
 
 ```bash
 token  level09
