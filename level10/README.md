@@ -1,14 +1,14 @@
 # level09
 
-1) Fichiers trouvés dans `/home/level09/` :
+1) Fichiers trouvés dans `/home/level10/` :
 
 ```bash
-token  level09
+token  level10
 ```
 
-2) Analyse du fichier `token`
+2) Analyse du fichier `token` et du binaire `level10`
 
-Le fichier `token` contient la chaine suivante `f4kmm6p|=<82>^?p<82>n<83><82>DB<83>Du{^?<8c><89>`.
+Mouv n'avons aucun droit sur `token`
 Le token est obfusqué. 
 
 Chaque octet du fichier a été décalé de son index (on a ajouté i au i-ème caractère). On le devine en executant :
