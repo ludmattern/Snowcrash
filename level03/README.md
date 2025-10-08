@@ -1,16 +1,10 @@
 # level03
 
-1) Commande utilisée pour trouver le fichier appartenant à `flag03` :
-
-```bash
-ls -l
-```
-
-2) Résultat notable trouvé :
+1. Fichiers trouvés dans `~/` :
 
 Fichier : `./level03` appartenant à `flag03`
 
-3) Exécution du binaire trouvé :
+2) Exécution du binaire trouvé :
 
 ```bash
 chmod +x level03
