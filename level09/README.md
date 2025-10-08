@@ -1,43 +1,40 @@
 # level06
 
-1) Information trouvée dans `/home/level06/` :
+1) Fichiers trouvés dans `/home/level09/` :
 
 ```bash
-level06  level06.php
-level06@SnowCrash:~$ strings level06 | grep level06
-/home/user/level06/level06.php
+token  level09
 ```
 
-2) Analyse du fichier `level06.php`
+2) Analyse du fichier `token`
 
-Le binaire `level06` peut executer du code php via l'expand (option `e`) de `preg_replace`.
+Le fichier `token` contient la chaine suivante `f4kmm6p|=<82>^?p<82>n<83><82>DB<83>Du{^?<8c><89>`.
+Le token est obfusqué. 
 
+Chaque octet du fichier a été décalé de son index (on a ajouté i au i-ème caractère). On le devine en executant :
+```bash
+level09@SnowCrash:~$ ./level09 aaaaaa
+abcdef # +0, +1, +2, etc...
+level09@SnowCrash:~$ ./level09 111111
+123456
+```
+Un autre indice en faisant : `level09@SnowCrash:~$ strings level09`
 ```php
-function y($m) { $m = preg_replace(.,  x , $m); $m = preg_replace(@,  y, $m); return $m; }
-
-function x($y, $z) { 
-  $a = file_get_contents($y); 
-  $a = preg_replace(([x (.*)])e, y(2), $a); 
-  $a = preg_replace([, (, $a); 
-  $a = preg_replace(], ), $a); 
-  return $a; 
-}
-$r = x($argv[1], $argv[2]); print $r;
-
+level09@SnowCrash:~$ strings level09
+[...]
+You should not reverse this #alors nous allons le faire
+[...]
 ```
+
 3) Exploitation pour récupérer le token :
 
-* On crée une chaine pour `preg_replace` :```echo '[x ${`/bin/getflag`}]'```
+* On applique le traitement inverse pour obtenir le `mdp` de `flag09` :
 
-On l'exécute :
 ```bash
-level06@SnowCrash:~$ echo '[x ${`/bin/getflag`}]' | ./level06 php://stdin 2>&1 | grep token
-PHP Notice:  Undefined variable: Check flag.Here is your token : ...
+level09@SnowCrash:~$ python -c 'import sys; d=bytearray(open("token","rb").read()); sys.stdout.write("".join(chr((b-i)&0xff) for i,b in enumerate(d)))'
+f3iji1ju5yuevaus41q1afiuq #mot de passe de flag09
 ```
 
 4) Token découvert :
 
-Le token est `wiok45aaoguiboiki2tuin6ub`.
-
-
-python -c 'import sys; d=bytearray(open("token","rb").read()); sys.stdout.write("".join(chr((b-i)&0xff) for i,b in enumerate(d)))' > /tmp/tokendecyphered
+Le token est `s5cAJpM8ev6XHw998pRWG728z`.
