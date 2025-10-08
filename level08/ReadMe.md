@@ -44,6 +44,18 @@ ln -s /home/user/level08/token /tmp/lecteur
 ./level08 /tmp/lecteur
 ```
 
-5) Token découvert :
+5) Password découvert :
 
-- Le token est `quif5eloekouj29ke0vouxean`.
+- Le password est `quif5eloekouj29ke0vouxean`.
+
+6) On se connecte a flag08
+
+```bash
+su flag08
+quif5eloekouj29ke0vouxean
+```
+
+```bash
+getflag
+25749xKZ8L7DkSCwJkT9dyv6f
+```
