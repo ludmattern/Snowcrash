@@ -1,4 +1,4 @@
-# level06
+# level09
 
 1) Fichiers trouvés dans `/home/level09/` :
 
@@ -19,7 +19,7 @@ level09@SnowCrash:~$ ./level09 111111
 123456
 ```
 Un autre indice en faisant : `level09@SnowCrash:~$ strings level09`
-```php
+```bash
 level09@SnowCrash:~$ strings level09
 [...]
 You should not reverse this #alors nous allons le faire
