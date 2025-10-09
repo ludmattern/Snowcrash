@@ -2,7 +2,8 @@
 
 1. Fichiers trouvés dans `~/` : aucun
 
-- Analyse du binaire `getflag` avec `ghydra`.
+
+- Analyse du binaire `getflag` avec `ghidra`.
 
 On peut voir que le binaire est protégé par un mécanisme de détection de débogueur avec `ptrace`.
 ```c
@@ -25,13 +26,13 @@ Ici le binaire utilise `getuid()` pour récupérer l'UID de l'utilisateur comme 
 	...
 ```
 
-3. Exploitation
+2. Exploitation
 
-- Le plan est donc d'intercepter grâce à `gdb` le moment où getuid envoie sa valeur de retour et de la changer au sein du programme. tout en bypassant la protection anti debugger.
+Le plan est donc d'intercepter grâce à `gdb` le moment où getuid envoie sa valeur de retour et de la changer au sein du programme. tout en bypassant la protection anti debugger.
 
-- On lance le programme avec gdb : 
+- On lance le programme avec `gdb` : 
 
-``` gdb /bin/getflag ```
+	``` gdb /bin/getflag ```
 
 - On fixe deux breakpoints à l'entrée de `getuid()` et de `ptrace`: 
 
@@ -49,6 +50,6 @@ return (int)3014 //uid de l'utilisateur level14
 continue
 ```
 
-4. Token decouvert
+3. Token decouvert
 
 - Le token est : `7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ`
