@@ -1,14 +1,33 @@
 # level00
 
-1. Fichiers trouvés dans `~/` :
-
-Fichier : `level02.pcap`
+## 1. Commande utilisée pour trouver le fichier appartenant à `flag00` :
 
 ```bash
-strings level02.pcap | grep Password
+find / -user flag00 -type f -ls 2>/dev/null
 ```
-Resultats : `Password: Nf&Nat`
 
-3) Décodage :
+- Nous voyons donc un fichier appartenant a `flag00`
+
+``/usr/sbin/john``
+
+-   Contenant `cdiiddwpgswtgt`
+
+## 2. Decodage : 
+
+La chaîne est un chiffrement de César (décalage 11).
 
 
+## 3. Password
+Le password est `nottoohardhere`
+
+## 4. Token
+
+```bash
+su flag00
+nottoohardhere
+[...]
+getflag
+Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias
+```
+
+Le password est `x24ti5gi3x0ol2eh4esiuxias`
