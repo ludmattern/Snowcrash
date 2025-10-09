@@ -1,7 +1,0 @@
-gdb -q ./level13
-(gdb) break getuid         # s’arrêter en entrée de getuid
-(gdb) run                  # lancer le binaire
-# quand le BP est touché :
-(gdb) finish               # exécute getuid jusqu’au retour, stop juste après le 'call'
-(gdb) set $eax = 0x1092    # force la valeur de retour à 4242
-(gdb) continue             # laisse le programme dérouler
