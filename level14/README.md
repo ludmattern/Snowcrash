@@ -1,24 +1,23 @@
 # level14
 
-1. Fichiers trouvés dans `~/` : aucun
+1. Files found in `~/` : none
 
+- Analysis of the `getflag` binary with `ghidra`.
 
-- Analyse du binaire `getflag` avec `ghidra`.
-
-On peut voir que le binaire est protégé par un mécanisme de détection de débogueur avec `ptrace`.
+We can see that the binary is protected by a debugger detection mechanism with `ptrace`.
 ```c
-	lVar2 = ptrace(PTRACE_TRACEME,0,1,0); //echoue en mode debug
+	lVar2 = ptrace(PTRACE_TRACEME,0,1,0); //fails in debug mode
 	if (lVar2 < 0) {
 	puts("You should not reverse this");
 	uVar3 = 1;
 	}
 ```
 
-Ici le binaire utilise `getuid()` pour récupérer l'UID de l'utilisateur comme dans l'exercice précédent et retourne la bon token en fonction.
+Here the binary uses `getuid()` to retrieve the user's UID as in the previous exercise and returns the correct token accordingly.
 ```c
 	_Var6 = getuid();
 	__stream = stdout;
-	if (_Var6 == 0xbbe /*3006 en décimal*/) {
+	if (_Var6 == 0xbbe /*3006 in decimal*/) {
 	pcVar4 = (char *)ft_des("H8B8h_20B4J43><8>\\ED<;j@3");
 	fputs(pcVar4,__stream);
 	}
@@ -28,28 +27,28 @@ Ici le binaire utilise `getuid()` pour récupérer l'UID de l'utilisateur comme 
 
 2. Exploitation
 
-Le plan est donc d'intercepter grâce à `gdb` le moment où getuid envoie sa valeur de retour et de la changer au sein du programme. tout en bypassant la protection anti debugger.
+The plan is therefore to intercept with `gdb` the moment when getuid sends its return value and change it within the program, while bypassing the anti-debugger protection.
 
-- On lance le programme avec `gdb` : 
+- Launch the program with `gdb` : 
 
 	``` gdb /bin/getflag ```
 
-- On fixe deux breakpoints à l'entrée de `getuid()` et de `ptrace`: 
+- Set two breakpoints at the entry of `getuid()` and `ptrace`: 
 
 ``` c
 break getuid
 break ptrace
 ```
 
-- on modifie les valeurs qui vont être retournées et on obtient le token.
+- modify the values that will be returned and get the token.
 
 ``` c
-return (int)1 //pour bypasser la protection anti-debugger
+return (int)1 //to bypass anti-debugger protection
 continue
-return (int)3014 //uid de l'utilisateur level14
+return (int)3014 //uid of level14 user
 continue
 ```
 
-3. Token decouvert
+3. Token discovered
 
-- Le token est : `7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ`
+- The token is : `7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ`

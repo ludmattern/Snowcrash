@@ -1,19 +1,25 @@
 # level08
 
-1) Fichier binaire `level08` (qui nécessite un paramètre) ainsi qu'un fichier `token` à la racine, nous avons donc essayé de donner le fichier token à l'exécutable :
+1. Files found in `~/` :
+
+```bash
+level08  token
+```
+
+Binary file `level08` (which requires a parameter) as well as a `token` file at the root, so we tried to give the token file to the executable :
 
 ```bash
 ./level08 token
 You may not access token
 ```
 
-2) Analyse du binaire :
+2. Binary analysis
 
 ```bash
 strings level08
 ```
 
-- plusieurs lignes retiennent notre attention :
+Several lines catch our attention :
 
 ```bash
 __stack_chk_fail
@@ -29,33 +35,27 @@ Unable to open %s
 Unable to read fd %d
 ```
 
-- Nous pouvons en déduire qu'il y a un check fail, `__stack_chk_fail`, et qu'il y a de grandes chances que le check soit fait en comparant deux strings avec `strstr`. Nous pouvons voir ensuite que deux chaînes existent dans les logs donc `%s` et `token`. Nous en déduisons donc que le fichier passé en paramètre ne doit pas se nommer `token`.
+We can deduce that there is a check fail, `__stack_chk_fail`, and that there is a good chance that the check is done by comparing two strings with `strstr`. We can then see that two strings exist in the logs so `%s` and `token`. We therefore deduce that the file passed as parameter must not be named `token`.
 
+3. Exploitation
 
-3) Exploitation : Nous ne possédons aucun droit sur `token`, donc impossible de renommer, ni de copier. Nous avons donc décidé de créer un raccourci vers `token` nommé `lecteur` dans /tmp/
+We have no rights on `token`, so impossible to rename or copy. We therefore decided to create a shortcut to `token` named `lecteur` in /tmp/ :
 
 ```bash
 ln -s /home/user/level08/token /tmp/lecteur
-```
-
-4) Exécution : lancer `./level08` avec en paramètre `/tmp/lecteur`, la chaîne comparée ne sera alors pas `token`.
-
-```bash
 ./level08 /tmp/lecteur
 ```
 
-5) Password découvert :
+Launch `./level08` with `/tmp/lecteur` as parameter, the compared string will then not be `token`.
 
-- Le password est `quif5eloekouj29ke0vouxean`.
-
-6) On se connecte a flag08
+4. Final exploitation
 
 ```bash
 su flag08
 quif5eloekouj29ke0vouxean
+getflag
 ```
 
-```bash
-getflag
-25749xKZ8L7DkSCwJkT9dyv6f
-```
+5. Token discovered
+
+The token is : `25749xKZ8L7DkSCwJkT9dyv6f`
